@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iyojana/auth/auth_dashboard.dart';
 import 'package:iyojana/auth/login_screen.dart';
+import 'package:iyojana/auth/set_tags_screen.dart';
 import 'package:iyojana/splash_screen.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const LoginScreen(),
+      home:SetTagsScreen(),
       routes: {
         AuthDashboard.routeName : (context)=> AuthDashboard(),
         LoginScreen.routeName : (context)=> LoginScreen(),

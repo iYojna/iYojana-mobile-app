@@ -68,10 +68,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     filled: true,
-                    fillColor: Color.fromARGB(179, 208, 208, 208),
+                    fillColor: const Color.fromARGB(179, 208, 208, 208),
                     hintText: "Email"
                   )),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   TextField(
                     obscureText: true,
                     decoration: InputDecoration(
@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     filled: true,
-                    fillColor: Color.fromARGB(179, 208, 208, 208),
+                    fillColor: const Color.fromARGB(179, 208, 208, 208),
                     hintText: "Password"
                   ),
                   ),
@@ -90,6 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 45,
                     width: double.infinity,
                     child:
+                    //TODO: Add login implementation
                         ElevatedButton(onPressed: () {}, child: Text("Login")),
                   )
                   ],
@@ -104,10 +105,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: <TextSpan>[
                         TextSpan(
                             text: 'Sign Up',
-                            style: TextStyle(color: Colors.green),
+                            style: const TextStyle(color: Colors.green),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                print('Terms of Service"');
+                                //TODO : Add Sign up screen route
+                                print('Sign Up');
                               }),
                       ],
                     ),
