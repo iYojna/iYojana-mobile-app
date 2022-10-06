@@ -40,6 +40,7 @@ dependencies:
   shared_preferences: ^2.0.15
   flutter_tags_x: ^1.1.0
   google_fonts: ^3.0.1
+  flutter_shake_animated: ^0.0.5
 
 dev_dependencies:
   flutter_test:

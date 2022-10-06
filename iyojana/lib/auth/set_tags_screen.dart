@@ -33,7 +33,7 @@ class _SetTagsScreenState extends State<SetTagsScreen> {
   ];
   @override
   Widget build(BuildContext context) {
-    print("Build");
+    print("Build Set tags Screen");
     return Scaffold(
       body: SafeArea(
           child: CustomScrollView(

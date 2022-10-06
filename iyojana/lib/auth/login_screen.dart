@@ -31,7 +31,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: IconButton(
                             icon: const Icon(Icons.arrow_back_ios),
                             //TODO : Add route
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                           ),
                         ),
                         Text("Welcome Back",
