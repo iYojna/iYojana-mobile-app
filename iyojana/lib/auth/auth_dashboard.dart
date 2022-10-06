@@ -2,12 +2,62 @@ import 'package:flutter/material.dart';
 import 'package:iyojana/auth/login_screen.dart';
 import 'package:iyojana/auth/register_screen.dart';
 
-class AuthDashboard extends StatelessWidget {
+import '../language.dart';
+import '../language_constants.dart';
+import '../main.dart';
+
+class AuthDashboard extends StatefulWidget {
   const AuthDashboard({Key? key}) : super(key: key);
   static const routeName = 'authdashboard';
+
+  @override
+  State<AuthDashboard> createState() => _AuthDashboardState();
+}
+
+class _AuthDashboardState extends State<AuthDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 235, 234, 234),
+        elevation: 0,
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: DropdownButton<Language>(
+              underline: const SizedBox(),
+              icon: const Icon(
+                Icons.language,
+                color: Colors.white,
+              ),
+              onChanged: (Language? language) async {
+                if (language != null) {
+                  Locale _locale = await setLocale(language.languageCode);
+                  MyApp.setLocale(context, _locale);
+                  print(_locale);
+                }
+              },
+              items: Language.languageList()
+                  .map<DropdownMenuItem<Language>>(
+                    (e) => DropdownMenuItem<Language>(
+                      value: e,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text(
+                            e.flag,
+                            style: const TextStyle(fontSize: 30),
+                          ),
+                          Text(e.name)
+                        ],
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ),
+        ],
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(9.0),
@@ -16,11 +66,11 @@ class AuthDashboard extends StatelessWidget {
             children: [
               Image.asset('./assets/authpage_icon.png'),
               Wrap(
-                children: const [
+                children: [
                   Padding(
                     padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                     child: Text(
-                      "Get Reccomendation of best Govt. Schemes",
+                      translation(context).authDashboardTitle,
                       style: TextStyle(fontSize: 35),
                     ),
                   )

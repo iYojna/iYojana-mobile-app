@@ -4,6 +4,11 @@ import 'package:flutter_shake_animated/flutter_shake_animated.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iyojana/auth/auth_dashboard.dart';
 
+import '../language.dart';
+import '../language_constants.dart';
+import '../main.dart';
+
+
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
   @override
@@ -38,7 +43,7 @@ class ShakeItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset('./assets/splash_icon.png'),
-            Text("iYojna",
+            Text(translation(context).iYojana,
                 style: GoogleFonts.inter(
                   textStyle: const TextStyle(
                       fontSize: 30, fontWeight: FontWeight.w700),
