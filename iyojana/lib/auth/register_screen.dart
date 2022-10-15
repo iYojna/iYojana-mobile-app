@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:iyojana/auth/set_tags_screen.dart';
+import 'package:iyojana/auth/widgets/custom_dropdown.dart';
+import 'package:iyojana/auth/widgets/custom_text_field.dart';
+import 'package:iyojana/auth/widgets/registration_page1.dart';
+import 'package:iyojana/auth/widgets/registration_page2.dart';
 import 'package:iyojana/styles.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -13,115 +19,131 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final _formKey = GlobalKey<FormState>();
+  List<Widget> pages = [RegistrationPage1(), RegistrationPage2()];
+  late PageController _controller;
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _controller = PageController(initialPage: 0);
+    super.initState();
+    //_controller =
+  }
+
+  Container buildDot(int index, BuildContext context) {
+    return Container(
+      height: 10,
+      width: 10,
+      margin: EdgeInsets.only(right: 5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: currentIndex == index ? Colors.green : Colors.grey,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Column(
-            children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: Container(
-                  height: 200,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/appBG.png"))),
-                ),
-              ),
-              Text("Welcome!!",
-                  style: GoogleFonts.inter(
-                      textStyle: const TextStyle(
-                          fontWeight: FontWeight.w400, fontSize: 36))),
-              Text("Let's get you registered",
-                  style: GoogleFonts.inter(
-                      textStyle: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 20,
-                          color: Colors.grey))),
-
-              const SizedBox(
-                height: 20,
-              ),
-              //TODO : Add validators
-              Column(
-                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: CustomScrollView(
+        //physics: NeverScrollableScrollPhysics(),
+        slivers: [
+          SliverFillRemaining(
+            child: IntrinsicHeight(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                //crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
+                  Stack(children: [
+                    Align(
+                        alignment: Alignment.topLeft,
+                        child: Image.asset("assets/appBG.png")),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 70.0),
+                      child: Align(
+                          alignment: Alignment.topCenter,
+                          child: Image.asset("assets/registerimg.png")),
+                    ),
+                  ]),
+
+                  Expanded(
+                    child: PageView.builder(
+                        controller: _controller,
+                        scrollDirection: Axis.horizontal,
+                        onPageChanged: (value) {
+                          setState(() {
+                            currentIndex = value;
+                          });
+                        },
+                        itemCount: pages.length,
+                        itemBuilder: (context, index) {
+                          // Contents of Slider that we
+                          // created in Modal Class
+                          return pages[index];
+                        }),
+                  ),
+                  // add elevation to the container
+
+                  Card(
+                    elevation: 10.0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        currentIndex == 1
+                            ? Expanded(
+                                child: TextButton(
+                                  child: Text("Previous",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey)),
+                                  onPressed: () {
+                                    _controller.previousPage(
+                                        duration: Duration(milliseconds: 500),
+                                        curve: Curves.ease);
+                                  },
+                                ),
+                              )
+                            : Expanded(
+                                child: SizedBox(),
+                              ),
+                        Expanded(
+                          child: Container(
+                              child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: List.generate(
+                              pages.length,
+                              (index) => buildDot(index, context),
                             ),
-                            filled: true,
-                            fillColor: const Color.fromARGB(179, 208, 208, 208),
-                            hintText: "Email")),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            filled: true,
-                            fillColor: const Color.fromARGB(179, 208, 208, 208),
-                            hintText: "Name")),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        decoration:
-                            Styles().inputDecoration(labelText: "Email")),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                        //keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            filled: true,
-                            fillColor: const Color.fromARGB(179, 208, 208, 208),
-                            hintText: "Caste")),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            filled: true,
-                            fillColor: const Color.fromARGB(179, 208, 208, 208),
-                            hintText: "Age")),
-                  ),
+                          )),
+                        ),
+                        currentIndex == 0
+                            ? Expanded(
+                                child: TextButton(
+                                  child: Text("Next",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey)),
+                                  onPressed: () {
+                                    _controller.nextPage(
+                                        duration: Duration(milliseconds: 500),
+                                        curve: Curves.ease);
+                                  },
+                                ),
+                              )
+                            : Expanded(
+                                child: SizedBox(),
+                              ),
+                      ],
+                    ),
+                  )
                 ],
               ),
-
-              Expanded(child: Container()),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: 50,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                        elevation: MaterialStateProperty.all(0),
-                      ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, SetTagsScreen.routeName);
-                      },
-                      child: const Text("Next")),
-                ),
-              ),
-            ]),
+            ),
+          ),
+        ],
       ),
     );
   }

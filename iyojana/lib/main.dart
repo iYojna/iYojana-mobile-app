@@ -22,7 +22,7 @@ class MyApp extends StatefulWidget {
 
   @override
   State<MyApp> createState() => _MyAppState();
-    static void setLocale(BuildContext context, Locale newLocale) {
+  static void setLocale(BuildContext context, Locale newLocale) {
     _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
     state?.setLocale(newLocale);
   }
@@ -39,36 +39,33 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void didChangeDependencies() {
-
     getLocale().then((locale) => {setLocale(locale)});
     super.didChangeDependencies();
   }
+
   SchemeCategory temp = SchemeCategory(
-    id: "1", 
-    name: "Housing and Relocation", 
-    schemes: [
-      Scheme(
-        id: "11",
-        details: "LOL",
-        name: "Scheme 1",
-        posterUrl: "https://picsum.photos/250?image=9"
-      ),
-      Scheme(
-        id: "12",
-        details: "LOL",
-        name: "Scheme 2",
-        posterUrl: "https://picsum.photos/250?image=9"
-      ),
-      Scheme(
-        id: "13",
-        details: "LOL",
-        name: "Scheme 3",
-        posterUrl: "https://picsum.photos/250?image=9"
-      )
-    ],
-    isFollwed: true, 
-    description: "This contains the list of all the housing and Relocation Schemes offered by the Government of Gujrat . Write more details regarding the same"
-  );
+      id: "1",
+      name: "Housing and Relocation",
+      schemes: [
+        Scheme(
+            id: "11",
+            details: "LOL",
+            name: "Scheme 1",
+            posterUrl: "https://picsum.photos/250?image=9"),
+        Scheme(
+            id: "12",
+            details: "LOL",
+            name: "Scheme 2",
+            posterUrl: "https://picsum.photos/250?image=9"),
+        Scheme(
+            id: "13",
+            details: "LOL",
+            name: "Scheme 3",
+            posterUrl: "https://picsum.photos/250?image=9")
+      ],
+      isFollwed: true,
+      description:
+          "This contains the list of all the housing and Relocation Schemes offered by the Government of Gujrat . Write more details regarding the same");
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -80,7 +77,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: ChatScreen(),
+      home: SplashScreen(),
       // home: SchemeCategoryDetailPage(category: temp),
       routes: {
         AuthDashboard.routeName: (context) => AuthDashboard(),
@@ -88,7 +85,6 @@ class _MyAppState extends State<MyApp> {
         RegisterScreen.routeName: (context) => RegisterScreen(),
         SetTagsScreen.routeName: (context) => SetTagsScreen(),
         HomeScreen.routeName: (context) => HomeScreen(),
-        
       },
     );
   }
