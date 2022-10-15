@@ -20,7 +20,6 @@ class RegistrationPage2 extends StatefulWidget {
 }
 
 class _RegistrationPage2State extends State<RegistrationPage2> {
-  
   final TextEditingController _maritalStatusController =
       TextEditingController();
   final TextEditingController _casteController = TextEditingController();
@@ -41,8 +40,7 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
   @override
   Widget build(BuildContext context) {
     return Consumer<FormProvider>(
-      builder: (context, formProvider, _) => 
-      Form(
+      builder: (context, formProvider, _) => Form(
         //key: _formKey,
         child: ListView(children: [
           Padding(
@@ -68,7 +66,6 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                     formProvider.setCaste(value);
                   },
                   items: casteOptions),
-              
               customDropDown(
                   context: context,
                   hintText: "Select your educational qualifications",

@@ -18,6 +18,7 @@ import 'package:speech_to_text/speech_to_text.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 import 'auth/form_provider.dart';
+import 'auth/otp_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,7 +62,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   /// Each time to start a speech recognition session
- 
 
   @override
   void didChangeDependencies() {
@@ -84,7 +84,7 @@ class _MyAppState extends State<MyApp> {
         Provider<FormProvider>(
           create: (_) => FormProvider(),
         )
-      ], child: SplashScreen()),
+      ], child: OTPScreen()),
       // home: SchemeCategoryDetailPage(category: temp),
       routes: {
         AuthDashboard.routeName: (context) => AuthDashboard(),
