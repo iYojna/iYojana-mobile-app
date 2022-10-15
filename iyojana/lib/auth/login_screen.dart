@@ -1,6 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iyojana/auth/widgets/custom_back_button.dart';
+import 'package:iyojana/auth/widgets/custom_elevated_button.dart';
+import 'package:iyojana/auth/widgets/language_dropdown.dart';
+import 'package:iyojana/language_constants.dart';
+import '../styles.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -13,40 +18,33 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //resizeToAvoidBottomInset: false,
-      //extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: customBackButton(context),
+        actions: <Widget>[
+          languageDropdown(context)
+        ],
+      ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: SafeArea(
           child: Column(
-              //mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: IconButton(
-                            icon: const Icon(Icons.arrow_back_ios),
-                            //TODO : Add route
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                        Text("Welcome Back",
-                            style: GoogleFonts.inter(
-                                textStyle: const TextStyle(
-                                    fontWeight: FontWeight.w400, fontSize: 36))),
-                        Text("Let's sign you in",
-                            style: GoogleFonts.inter(
-                                textStyle: const TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 20,
-                                    color: Colors.grey))),
-                      ]),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(translation(context).welcomeBack,
+                              style:Styles().heading1()),
+                          Text(translation(context).loginSubtitle,
+                              style: Styles().subTitle1()),
+                        ]),
+                  ),
                 ),
                 const SizedBox(
                   height: 30,
@@ -57,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                   Image.asset('./assets/login.png'),
                   const Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(20.0),
                     child: Text("Enter Your Email Address",
                         style: TextStyle(
                             color: Colors.green,
@@ -88,19 +86,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 30,
                   ),
-                  SizedBox(
-                    height: 45,
-                    width: double.infinity,
-                    child:
-                    //TODO: Add login implementation
-                        ElevatedButton(onPressed: () {}, child: Text("Login")),
-                  )
+                  customElevatedButton(context: context, onPressed: (){}, content: "Login", style: Styles().buttonStyle1())
                   ],
                 ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom : 10.0),
                   child: RichText(
+                    textAlign: TextAlign.center,
                     text: TextSpan(
                       text: "Don't have an account? ",
                       style: const TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.w400),

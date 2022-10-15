@@ -38,6 +38,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void didChangeDependencies() {
+    
     getLocale().then((locale) => {setLocale(locale)});
     super.didChangeDependencies();
   }
@@ -78,7 +79,8 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: SchemeCategoryDetailPage(category: temp),
+      home: SplashScreen(),
+      // home: SchemeCategoryDetailPage(category: temp),
       routes: {
         AuthDashboard.routeName: (context) => AuthDashboard(),
         LoginScreen.routeName: (context) => LoginScreen(),
