@@ -15,7 +15,7 @@ class Styles {
 
   TextStyle heading1() {
     return GoogleFonts.inter(
-        textStyle: TextStyle(fontWeight: FontWeight.w400, fontSize: 36));
+        textStyle: TextStyle(fontWeight: FontWeight.w400, fontSize: 28));
   }
 
   TextStyle subTitle1() {
@@ -27,12 +27,19 @@ class Styles {
   ButtonStyle buttonStyle1() {
     return ButtonStyle(
         elevation: MaterialStateProperty.all(0),
-      );
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                side: const BorderSide(color: Colors.green))));
   }
 
   ButtonStyle buttonStyle2() {
     return ButtonStyle(
         elevation: MaterialStateProperty.all(0),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                side: const BorderSide(color: Colors.green))),
         backgroundColor: MaterialStateProperty.all<Color>(
             Color.fromARGB(255, 214, 214, 214)),
         foregroundColor: MaterialStateProperty.all<Color>(Colors.green));

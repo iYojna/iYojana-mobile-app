@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iyojana/styles.dart';
 
 class Tags {
   String id;
@@ -37,47 +38,81 @@ class _SetTagsScreenState extends State<SetTagsScreen> {
     return Scaffold(
       body: SafeArea(
           child: CustomScrollView(
+        physics: BouncingScrollPhysics(),
         slivers: [
           SliverFillRemaining(
             hasScrollBody: false,
             child: Column(
               children: <Widget>[
-                Text(
-                  'Welcome',
-                  style: GoogleFonts.inter(
-                      textStyle: const TextStyle(
-                          fontWeight: FontWeight.w300, fontSize: 20)),
-                ),
-                Text('Choose your preferred scheme',
+                Padding(
+                  padding: EdgeInsets.only(top: 20.0, bottom: 5.0),
+                  child: Text(
+                    'Welcome',
                     style: GoogleFonts.inter(
-                      textStyle: const TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16),
-                    )),
+                        textStyle: const TextStyle(
+                            fontWeight: FontWeight.w300, fontSize: 28)),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 10.0),
+                  child: Text('Choose your preferred scheme',
+                      style: GoogleFonts.inter(
+                        textStyle: const TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16),
+                      )),
+                ),
                 Wrap(
                     children: tags
                         .map((tag) => Padding(
-                          padding: const EdgeInsets.only(left: 8.0, right: 8.0, top:5.0, bottom: 5.0),
-                          child: ElevatedButton(
-                          
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(tag.enabled? Colors.green : Color.fromARGB(255, 184, 183, 183))
-                            ),
-                            onPressed: (){
-                              setState(() {
-                                print("clicked");
-                                tag.enabled = !tag.enabled;
-                              });
-                            }, 
-                            child: Container(
-                              child: Text(tag.name),
-                            )
-                          )
-                        )).toList()),
+                            padding: const EdgeInsets.only(
+                                left: 5.0, right: 5.0, top: 5.0, bottom: 5.0),
+                            child: ElevatedButton(
+                                // add border radius
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  primary: tag.enabled
+                                      ? Color.fromARGB(255, 227, 255, 217)
+                                      : Color.fromARGB(255, 245, 244, 244),
+                                  side: BorderSide(
+                                      width: 2,
+                                      color: tag.enabled
+                                          // 0, 166, 36, 1
+                                          ? Color.fromARGB(255, 0, 166, 36)
+                                          : Colors.transparent),
+                                  // backgroundColor: MaterialStateProperty.all(
+                                  //     tag.enabled
+                                  //         ? Color.fromARGB(255, 227, 255, 217)
+                                  //         : Color.fromARGB(
+                                  //             255, 245, 244, 244))
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    print("clicked");
+                                    tag.enabled = !tag.enabled;
+                                  });
+                                },
+                                child: Container(
+                                  child: Text(
+                                    tag.name,
+                                    style: GoogleFonts.inter(
+                                        textStyle: TextStyle(
+                                            // rgba(0, 166, 36, 1)
+                                            color: tag.enabled
+                                                ? Color.fromARGB(
+                                                    255, 0, 166, 36)
+                                                : Colors.black,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 16)),
+                                  ),
+                                ))))
+                        .toList()),
                 Expanded(child: Container()),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
+                  padding: const EdgeInsets.only(bottom: 20.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -85,18 +120,16 @@ class _SetTagsScreenState extends State<SetTagsScreen> {
                           height: 50,
                           width: MediaQuery.of(context).size.width * 0.45,
                           child: ElevatedButton(
-                             style: ButtonStyle(
-                        elevation: MaterialStateProperty.all(0),
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            Color.fromARGB(255, 214, 214, 214)),
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.green)),
-                              onPressed: () {}, child: Text("Skip for now"))),
+                              style: Styles().buttonStyle1(),
+                              onPressed: () {},
+                              child: Text("Skip for now"))),
                       SizedBox(
                           height: 50,
                           width: MediaQuery.of(context).size.width * 0.45,
                           child: ElevatedButton(
-                              onPressed: () {}, child: Text("Done")))
+                              style: Styles().buttonStyle2(),
+                              onPressed: () {},
+                              child: Text("Done")))
                     ],
                   ),
                 )
