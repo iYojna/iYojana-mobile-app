@@ -13,6 +13,24 @@ class Styles {
         textStyle: TextStyle(fontWeight: fontWeight, fontSize: fontSize));
   }
 
+  InputDecoration inputDecoration({required labelText}) {
+    return InputDecoration(
+      labelText: labelText,
+      labelStyle: GoogleFonts.inter(
+          textStyle: TextStyle(
+              color: Color.fromARGB(255, 0, 166, 36),
+              fontWeight: FontWeight.w400,
+              fontSize: 16)),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: BorderSide(
+          color: Color.fromARGB(255, 214, 214, 214),
+          width: 1,
+        ),
+      ),
+    );
+  }
+
   TextStyle heading1() {
     return GoogleFonts.inter(
         textStyle: TextStyle(fontWeight: FontWeight.w400, fontSize: 28));
