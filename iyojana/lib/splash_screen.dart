@@ -8,7 +8,6 @@ import '../language.dart';
 import '../language_constants.dart';
 import '../main.dart';
 
-
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
   @override
@@ -20,7 +19,8 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
           child: ShakeItem(
-              shakeList: ShakeRotateConstant1(), duration: const Duration(seconds: 5))),
+              shakeList: ShakeRotateConstant1(),
+              duration: const Duration(seconds: 5))),
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iyojana/chat/widgets/message_bubble.dart';
 
 class Messages extends StatelessWidget {
-  final List<Map<String, dynamic>> messages;
+  final List<Map<dynamic, dynamic>> messages;
   Messages(this.messages);
   @override
   Widget build(BuildContext context) {
