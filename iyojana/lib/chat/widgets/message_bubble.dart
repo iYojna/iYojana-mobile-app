@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:text_to_speech/text_to_speech.dart';
 
 class MessageBubble extends StatelessWidget {
   final dynamic message;
   final String username;
   bool isMe;
   MessageBubble(this.message, this.isMe, this.username);
+  TextToSpeech tts = TextToSpeech();
 
   Widget messageContainer(BuildContext context) {
     return Container(
@@ -21,7 +23,7 @@ class MessageBubble extends StatelessWidget {
       width: (isMe
           ? MediaQuery.of(context).size.width * 0.40
           : MediaQuery.of(context).size.width *
-              0.80), //width will not work if we have only container as parent widget
+              0.70), //width will not work if we have only container as parent widget
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
       child: message.runtimeType == String
@@ -75,7 +77,31 @@ class MessageBubble extends StatelessWidget {
               backgroundColor: Colors.transparent,
               backgroundImage: const AssetImage('assets/bot_icon.png'),
             ),
+          if (isMe)
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    tts.setLanguage("gu-IN");
+                    tts.speak(message);
+                  },
+                  icon: const Icon(Icons.volume_up),
+                ),
+              ],
+            ),
           messageContainer(context),
+          if (!isMe)
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    tts.setLanguage("gu-IN");
+                    tts.speak(message);
+                  },
+                  icon: const Icon(Icons.volume_up),
+                ),
+              ],
+            ),
           if (isMe)
             CircleAvatar(
               backgroundColor: Colors.transparent,
