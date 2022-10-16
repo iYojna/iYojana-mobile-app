@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iyojana/styles.dart';
 
+import '../bottom_tab_nav.dart';
+
 class Tags {
   String id;
   String name;
@@ -128,7 +130,11 @@ class _SetTagsScreenState extends State<SetTagsScreen> {
                           width: MediaQuery.of(context).size.width * 0.45,
                           child: ElevatedButton(
                               style: Styles().buttonStyle2(),
-                              onPressed: () {},
+                              onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                    return BasicBottomNavBar();
+                                  }));
+                              },
                               child: Text("Done")))
                     ],
                   ),

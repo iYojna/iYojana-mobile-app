@@ -61,7 +61,7 @@ class MessageBubble extends StatelessWidget {
           if (!isMe)
             CircleAvatar(
               backgroundColor: Colors.transparent,
-              backgroundImage: const AssetImage('/bot_icon.png'),
+              backgroundImage: const AssetImage('assets/bot_icon.png'),
             ),
           messageContainer(),
           if (isMe)

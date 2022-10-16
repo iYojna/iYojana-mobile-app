@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class Auth with ChangeNotifier {
   String? _token;
@@ -12,13 +12,17 @@ class Auth with ChangeNotifier {
   Timer? _authTimer;
   String? username;
   String? userEmail;
-  
+
+  String? errorCode;
+
+  String? get error => errorCode;
+
   bool get isAuth {
     return _token != null;
   }
 
   String? get token {
-    if (_expiryDate != null && 
+    if (_expiryDate != null &&
         _expiryDate!.isAfter(DateTime.now()) &&
         _token != null)
       return _token;
@@ -38,18 +42,17 @@ class Auth with ChangeNotifier {
         }));
     print(response.statusCode);
     final extractedData = json.decode(response.body);
-   
+
     if (response.statusCode >= 400) {
       print('inside throwing');
-      
     }
     var timestamp = (extractedData['expire_at']);
     DateTime date = DateTime.parse(timestamp);
-    
+
     _token = extractedData['key'];
     _expiryDate = date;
     _userId = extractedData['pk'].toString();
-    
+
     //handling autologin from here
     final prefs = await SharedPreferences.getInstance();
     final userData = json.encode({
@@ -60,49 +63,82 @@ class Auth with ChangeNotifier {
     prefs.setString('userData', userData);
     await getUser();
     _autoLogout();
-    
+
     notifyListeners();
   }
 
   Future<void> register(
-      String? email, String? username, String? password) async {
-    final url = Uri.parse('https://itsrandom.cf/api/v1/register/');
+      {required String username,
+      required String password,
+      required String firstName,
+      required String lastName,
+      required String dob,
+      required String gender,
+      required String income,
+      required String maritalStatus,
+      required String caste,
+      required String edQual,
+      required String district,
+      required String phone}) async {
+    print("IN THIS");
+    print(dob);
+    print(DateFormat('yyyy-MM-dd').parse(dob).toString());
+    final url =
+        Uri.parse('https://iyojna-backend.herokuapp.com/user/register/');
     final response = await http.post(url,
         headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          // 'Authorization': 'Token {token}',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: json.encode({
-          'email': email,
-          'password': password,
-          'username': username,
+          'username': "asasasa",
+          "password": "demopass",
+          "first_name": "AHAHAH",
+          "last_name": "AHAHAHA",
+          "dob": dob, //dd-MM-y
+          "income": income,
+          "marital_status": maritalStatus,
+          "caste": caste,
+          "gender": gender,
+          "district": district,
+          "educational_qualification": edQual,
+          "phone_no": "+91" + phone
         }));
-
+    print("WAITING...");
     print("printing request: ");
-    // print(response.statusCode);
-    // print(json.decode(response.body));
+    print(response.statusCode);
+    print(json.decode(response.body));
     final extractedData = json.decode(response.body);
-
+    print(extractedData.toString());
     if (response.statusCode >= 400) {
-      //throw HttpException(extractedData['error_message']);
+      print(response.statusCode);
+      throw "HTTP Exception";
     }
-    // print(extractedData['expire_at']);
-    var timestamp = extractedData['expire_at'];
-    DateTime date = DateTime.parse(timestamp);
-    // print(date);
-    _token = extractedData['key'];
-    _expiryDate = date;
-    _userId = extractedData['pk'].toString();
-    final prefs = await SharedPreferences.getInstance();
-    final userData = json.encode({
-      'token': _token,
-      'userId': _userId,
-      'expiryDate': _expiryDate!.toIso8601String(),
-    });
-    prefs.setString('userData', userData);
-    await getUser();
-    _autoLogout();
+    errorCode = response.statusCode.toString();
     notifyListeners();
+  }
+
+  Future<bool> checkOTP({required String pin, required String phoneNo}) async {
+    print(phoneNo);
+    print(pin);
+    final url =
+        Uri.parse('https://iyojna-backend.herokuapp.com/user/verify-otp/');
+    final response = await http.post(url,
+        headers: <String, String>{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: json.encode({"phone_no": phoneNo, "OTP": pin}));
+    print("WAITING...");
+    print("printing request: ");
+    print(response.statusCode);
+    print(json.decode(response.body));
+    final extractedData = json.decode(response.body);
+    print(extractedData.toString());
+    if (extractedData["otp"] == "Successfully verified") {
+      return true;
+    }
+    return false;
   }
 
   Future<bool> tryAutoLogin() async {

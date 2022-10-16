@@ -54,7 +54,7 @@ class _AuthDashboardState extends State<AuthDashboard> {
                             Navigator.pushNamed(
                                 context, RegisterScreen.routeName);
                           },
-                          content: "Sign Up",
+                          content: translation(context).signUp,
                           style: Styles().buttonStyle1())),
                   const SizedBox(
                     height: 10,
@@ -66,7 +66,7 @@ class _AuthDashboardState extends State<AuthDashboard> {
                         onPressed: () {
                           Navigator.pushNamed(context, LoginScreen.routeName);
                         },
-                        content: "Login",
+                        content: translation(context).login,
                         style: Styles().buttonStyle2()),
                   )
                 ],

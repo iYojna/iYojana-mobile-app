@@ -3,7 +3,9 @@ import 'package:iyojana/auth/auth_dashboard.dart';
 import 'package:iyojana/auth/login_screen.dart';
 import 'package:iyojana/auth/register_screen.dart';
 import 'package:iyojana/auth/set_tags_screen.dart';
+import 'package:iyojana/bottom_tab_nav.dart';
 import 'package:iyojana/chat/chat_screen.dart';
+import 'package:iyojana/dashboard/dashboard.dart';
 import 'package:iyojana/home/home_screen.dart';
 import 'package:iyojana/language_constants.dart';
 import 'package:iyojana/scheme/scheme.dart';
@@ -12,6 +14,7 @@ import 'package:iyojana/scheme/scheme_category_detail_screen.dart';
 import 'package:iyojana/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:provider/provider.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
@@ -84,7 +87,8 @@ class _MyAppState extends State<MyApp> {
         Provider<FormProvider>(
           create: (_) => FormProvider(),
         )
-      ], child: OTPScreen()),
+      ], child: SplashScreen() //BasicBottomNavBar() //SplashScreen()//SplashScreen()//OTPScreen()
+      ),
       // home: SchemeCategoryDetailPage(category: temp),
       routes: {
         AuthDashboard.routeName: (context) => AuthDashboard(),

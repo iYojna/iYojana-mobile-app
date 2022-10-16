@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:iyojana/auth/widgets/custom_dropdown.dart';
 import 'package:iyojana/auth/widgets/custom_text_field.dart';
+import 'package:iyojana/language_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
@@ -110,7 +111,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
         child: ListView(children: [
           Padding(
             padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 10.0),
-            child: Text("Get Recommendation of best Govt. Schemes",
+            child: Text(translation(context).authDashboardTitle,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
                     textStyle: const TextStyle(
@@ -131,9 +132,9 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                       context: context,
                       controller: _phoneController,
                       hintText: formProvider.phoneNumber == null
-                          ? "Enter your phone number"
+                          ? translation(context).enterPhoneNumber
                           : formProvider.phoneNumber.toString(),
-                      labelText: "Phone Number",
+                      labelText: translation(context).phoneNumber,
                       obscureText: false,
                       keyboardType: TextInputType.phone,
                       onChanged: (value) {
@@ -160,7 +161,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                       hintText: formProvider.phoneNumber == null
                           ? "Enter your annual salary"
                           : formProvider.income.toString(),
-                      labelText: "Income",
+                      labelText: translation(context).income,
                       obscureText: false,
                       keyboardType: TextInputType.name,
                       onChanged: (value) {
@@ -183,9 +184,9 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                       context: context,
                       controller: _placeController,
                       hintText: formProvider.phoneNumber == null
-                          ? "Village/Taluka/District"
+                          ? translation(context).placeText
                           : formProvider.place.toString(),
-                      labelText: "Place",
+                      labelText: translation(context).place,
                       obscureText: false,
                       keyboardType: TextInputType.name,
                       onChanged: (value) {
@@ -212,7 +213,7 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Date of Birth",
+                      Text(translation(context).dob,
                           textAlign: TextAlign.start,
                           style: GoogleFonts.inter(
                               textStyle: const TextStyle(
@@ -273,16 +274,12 @@ class _RegistrationPage1State extends State<RegistrationPage1> {
               ),
               customDropDown(
                   context: context,
-                  hintText: "Select your Gender",
-                  labelText: "Gender",
+                  hintText: translation(context).gender,
+                  labelText: translation(context).gender,
                   onChanged: (value) {
                     formProvider.setGender(value);
                   },
                   items: genderOptions),
-              
-              
-
-              
             ],
           ),
           

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iyojana/auth/widgets/custom_back_button.dart';
 import 'package:iyojana/auth/widgets/custom_elevated_button.dart';
+import 'package:iyojana/auth/widgets/custom_text_field.dart';
 import 'package:iyojana/auth/widgets/language_dropdown.dart';
 import 'package:iyojana/language_constants.dart';
 import '../styles.dart';
@@ -15,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController _phoneController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,18 +34,21 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
               //crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(translation(context).welcomeBack,
-                              style:Styles().heading1()),
-                          Text(translation(context).loginSubtitle,
-                              style: Styles().subTitle1()),
-                        ]),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(translation(context).welcomeBack,
+                                style:Styles().heading1()),
+                            Text(translation(context).loginSubtitle,
+                                style: Styles().subTitle1()),
+                          ]),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -54,39 +59,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                   children: [
                   Image.asset('./assets/login.png'),
-                  const Padding(
+                   Padding(
                     padding: EdgeInsets.all(20.0),
-                    child: Text("Enter Your Email Address",
+                    child: Text(translation(context).enterPhoneNumber,
                         style: TextStyle(
                             color: Colors.green,
                             fontWeight: FontWeight.w700,
                             fontSize: 17)),
                   ),
-                  TextField(
-                      decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    filled: true,
-                    fillColor: const Color.fromARGB(179, 208, 208, 208),
-                    hintText: "Email"
-                  )),
-                  const SizedBox(height: 10),
-                  TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    filled: true,
-                    fillColor: const Color.fromARGB(179, 208, 208, 208),
-                    hintText: "Password"
-                  ),
-                  ),
+                  customTextField(context: context, controller: _phoneController, hintText: translation(context).phoneNumber, labelText: translation(context).phoneNumber, obscureText: false , keyboardType: TextInputType.phone, onChanged: (){}),
                   const SizedBox(
                     height: 30,
                   ),
-                  customElevatedButton(context: context, onPressed: (){}, content: "Login", style: Styles().buttonStyle1())
+                  customElevatedButton(context: context, onPressed: (){}, content: translation(context).login, style: Styles().buttonStyle1())
                   ],
                 ),
                 ),
@@ -95,11 +80,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                      text: "Don't have an account? ",
-                      style: const TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.w400),
+                      text: translation(context).loginTextEnding,
+                      style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w400),
                       children: <TextSpan>[
                         TextSpan(
-                            text: 'Sign Up',
+                            text: translation(context).signUp,
                             style: const TextStyle(color: Colors.green),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
