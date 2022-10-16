@@ -3,6 +3,7 @@ import 'package:iyojana/auth/login_screen.dart';
 import 'package:iyojana/auth/register_screen.dart';
 import 'package:iyojana/auth/widgets/custom_elevated_button.dart';
 import 'package:iyojana/auth/widgets/language_dropdown.dart';
+import 'package:iyojana/bottom_tab_nav.dart';
 
 import '../language.dart';
 import '../language_constants.dart';
@@ -68,7 +69,19 @@ class _AuthDashboardState extends State<AuthDashboard> {
                         },
                         content: translation(context).login,
                         style: Styles().buttonStyle2()),
-                  )
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: customElevatedButton(
+                          context: context,
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> BasicBottomNavBar()));
+                          },
+                          content: "SKIP",
+                          style: Styles().buttonStyle2()),
+                  ),
+
                 ],
               )
             ],
