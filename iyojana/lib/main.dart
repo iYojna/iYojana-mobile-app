@@ -87,7 +87,7 @@ class _MyAppState extends State<MyApp> {
         Provider<FormProvider>(
           create: (_) => FormProvider(),
         )
-      ], child: BasicBottomNavBar() //BasicBottomNavBar() //SplashScreen()//SplashScreen()//OTPScreen()
+      ], child: SplashScreen() //BasicBottomNavBar() //SplashScreen()//SplashScreen()//OTPScreen()
       ),
       // home: SchemeCategoryDetailPage(category: temp),
       routes: {
