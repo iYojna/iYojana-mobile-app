@@ -141,18 +141,18 @@ class _DashboardState extends State<Dashboard> {
         body: SafeArea(
             child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.only(top: 6, left: 10, right: 10),
-              child: AnimSearchBar(
-                width: 400,
-                textController: _searchController,
-                onSuffixTap: () {
-                  setState(() {
-                    _searchController.clear();
-                  });
-                },
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.only(top: 6, left: 10, right: 10),
+            //   child: AnimSearchBar(
+            //     width: 400,
+            //     textController: _searchController,
+            //     onSuffixTap: () {
+            //       setState(() {
+            //         _searchController.clear();
+            //       });
+            //     },
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: Row(

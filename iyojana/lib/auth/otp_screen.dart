@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iyojana/auth/set_tags_screen.dart';
 import 'package:iyojana/auth/widgets/custom_elevated_button.dart';
 import 'package:iyojana/bottom_tab_nav.dart';
 import 'package:iyojana/styles.dart';
@@ -89,7 +90,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => BasicBottomNavBar()));
+                          builder: (context) => SetTagsScreen()));
                 } else {
                   print("Invalid OTP");
                 }

@@ -14,6 +14,7 @@ import 'package:iyojana/scheme/scheme_category_detail_screen.dart';
 import 'package:iyojana/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:provider/provider.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
@@ -86,7 +87,7 @@ class _MyAppState extends State<MyApp> {
         Provider<FormProvider>(
           create: (_) => FormProvider(),
         )
-      ], child: BasicBottomNavBar()//SplashScreen()//SplashScreen()//OTPScreen()
+      ], child: SplashScreen() //BasicBottomNavBar() //SplashScreen()//SplashScreen()//OTPScreen()
       ),
       // home: SchemeCategoryDetailPage(category: temp),
       routes: {
