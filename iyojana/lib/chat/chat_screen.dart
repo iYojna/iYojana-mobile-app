@@ -107,7 +107,19 @@ class _ChatScreenState extends State<ChatScreen> {
           final Map<dynamic, dynamic> data = json.decode(response.body);
 
           if (data.isEmpty) {
-            _addMessage('No schemes found', false, 'Bot');
+            _addMessage('No results found! Please try again', false, 'Bot');
+            // var ankurUrl = 'https://long-kids-shave-112-79-141-26.loca.lt/get';
+            // final ankurUri = Uri.parse(ankurUrl);
+            // final ankurRes = await http.post(ankurUri, body: {
+            //   'msg': query
+            // }, headers: <String, String>{
+            //   'Accept': 'application/json',
+            //   'Bypass-Tunnel-Reminder': 'true'
+            // });
+            // print(ankurRes);
+            // if (ankurRes.statusCode == 200) {
+            //   print(ankurRes);
+            // }
           } else {
             // print(data);
             _data.clear();

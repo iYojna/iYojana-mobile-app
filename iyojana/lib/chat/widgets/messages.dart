@@ -9,8 +9,7 @@ class Messages extends StatelessWidget {
     return Container(
       // padding: EdgeInsets.all(8),
       color: Colors.black12,
-      child:
-      ListView.builder(
+      child: ListView.builder(
           reverse: true,
           itemCount: messages.length,
           itemBuilder: (ctx, index) => MessageBubble(messages[index]['message'],
