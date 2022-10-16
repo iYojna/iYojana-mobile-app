@@ -41,7 +41,9 @@ class _JobsListViewState extends State<JobsListView> {
           } else if (snap.hasError) {
             return Text("${snap.error}");
           }
-          return CircularProgressIndicator();
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         });
   }
 
@@ -73,7 +75,7 @@ class _JobsListViewState extends State<JobsListView> {
                                   color: Colors.black),
                             )),
                         Text(data[i].desc,
-                        overflow: TextOverflow.ellipsis,
+                            overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.inter(
                               textStyle: const TextStyle(
@@ -103,7 +105,8 @@ class _JobsListViewState extends State<JobsListView> {
 Future<List<TempScheme>> _fetchSchemes(String tags) async {
   List<TempScheme> _schemes = [];
   final url = Uri.parse(
-      'https://iyojna-backend.herokuapp.com/schemes/retrieve-schemes/?tag='+tags);
+      'https://iyojna-backend.herokuapp.com/schemes/retrieve-schemes/?tag=' +
+          tags);
   final response = await http.get(
     url,
     headers: <String, String>{
