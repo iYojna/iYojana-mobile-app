@@ -19,7 +19,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   List<Map<dynamic, dynamic>> messages = [];
   void _addMessage(dynamic message, bool isUser, String userName) {
-    print('inside _add msg: $message is user: $isUser');
+    // print('inside _add msg: $message is user: $isUser');
     setState(() {
       messages.insert(0, {
         'message': message,
@@ -32,9 +32,9 @@ class _ChatScreenState extends State<ChatScreen> {
       const baseurl =
           'https://iyojna-backend.herokuapp.com/schemes/retrieve-query-schemes/?query=';
       // for every space in the message, replace it with &
-      final query = userMsg['message'].toString().replaceAll(' ', '&');
+      final query = userMsg['message'].toString().replaceAll(' ', ',');
       final combinedurl = baseurl + query;
-      print(query);
+      // print(query);
       final uri = Uri.parse(combinedurl);
 
       Widget botIcon = const SizedBox(
@@ -54,18 +54,29 @@ class _ChatScreenState extends State<ChatScreen> {
           setState(() {
             messages.removeAt(0);
           });
-          final Map<String, dynamic> data = json.decode(response.body);
+          print(json.decode(response.body));
+      final Map<dynamic, dynamic> data = json.decode(response.body);
 
           if (data.isEmpty) {
             _addMessage('No schemes found', false, 'Bot');
           } else {
-            //_addMessage(data, false, 'Bot');
-
+            // print(data);
             for (var x in data.keys.toList()) {
-              var reply = "${data[x]["name"]}\n\n${data[x]["desc"]}";
-              _addMessage(reply, false, 'Bot');
+              // var reply = "${data[x]["name"]}\n\n${data[x]["desc"]}";
+              for(var elem in data[x]){
+                var reply = "${elem["name"]}\n\n${elem["desc"]}";
+                _addMessage(reply, false, 'Bot');
+              }
+              //print("replyyyy"+reply.toString());
+              // _addMessage(reply, false, 'Bot');
             }
           }
+        } else {
+          setState(() {
+            messages.removeAt(0);
+          });
+          _addMessage('An error occurred while processing, please try again',
+              false, 'Bot');
         }
       }
 
