@@ -9,6 +9,9 @@ import 'package:iyojana/chat/widgets/messages.dart';
 import 'package:iyojana/chat/widgets/new_message.dart';
 import 'package:http/http.dart' as http;
 
+const baseurl =
+    'https://iyojna-backend.herokuapp.com/schemes/retrieve-query-schemes/?query=';
+
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
 
@@ -16,8 +19,56 @@ class ChatScreen extends StatefulWidget {
   State<ChatScreen> createState() => _ChatScreenState();
 }
 
+class Item {
+  Item({
+    required this.expandedValue,
+    required this.headerValue,
+    this.isExpanded = false,
+  });
+
+  String expandedValue;
+  String headerValue;
+  bool isExpanded;
+}
+
 class _ChatScreenState extends State<ChatScreen> {
+  List<Item> _data = [];
   List<Map<dynamic, dynamic>> messages = [];
+
+  Widget _buildPanel() {
+    return ExpansionPanelList(
+      expansionCallback: (int index, bool isExpanded) {
+        var mssg =
+            "${_data[index].headerValue}\n\n${_data[index].expandedValue}";
+        _addMessage(mssg, false, 'Bot');
+        setState(() {
+          _data[index].isExpanded = !isExpanded;
+        });
+      },
+      children: _data.map<ExpansionPanel>((Item item) {
+        return ExpansionPanel(
+          headerBuilder: (BuildContext context, bool isExpanded) {
+            return ListTile(
+              title: Text(item.headerValue),
+            );
+          },
+          body: ListTile(
+              title: Text(item.expandedValue),
+              subtitle:
+                  const Text('To delete this panel, tap the trash can icon'),
+              trailing: const Icon(Icons.delete),
+              onTap: () {
+                setState(() {
+                  _data.map((e) => e.isExpanded = !e.isExpanded).toList();
+                  _data.removeWhere((Item currentItem) => item == currentItem);
+                });
+              }),
+          isExpanded: item.isExpanded,
+        );
+      }).toList(),
+    );
+  }
+
   void _addMessage(dynamic message, bool isUser, String userName) {
     // print('inside _add msg: $message is user: $isUser');
     setState(() {
@@ -29,8 +80,6 @@ class _ChatScreenState extends State<ChatScreen> {
     });
     if (isUser) {
       final userMsg = messages.elementAt(0);
-      const baseurl =
-          'https://iyojna-backend.herokuapp.com/schemes/retrieve-query-schemes/?query=';
       // for every space in the message, replace it with &
       final query = userMsg['message'].toString().replaceAll(' ', ',');
       final combinedurl = baseurl + query;
@@ -55,21 +104,24 @@ class _ChatScreenState extends State<ChatScreen> {
             messages.removeAt(0);
           });
           print(json.decode(response.body));
-      final Map<dynamic, dynamic> data = json.decode(response.body);
+          final Map<dynamic, dynamic> data = json.decode(response.body);
 
           if (data.isEmpty) {
             _addMessage('No schemes found', false, 'Bot');
           } else {
             // print(data);
+            _data.clear();
             for (var x in data.keys.toList()) {
               // var reply = "${data[x]["name"]}\n\n${data[x]["desc"]}";
-              for(var elem in data[x]){
+              for (var elem in data[x]) {
                 var reply = "${elem["name"]}\n\n${elem["desc"]}";
-                _addMessage(reply, false, 'Bot');
+                _data.add(Item(
+                  headerValue: elem["name"],
+                  expandedValue: elem["desc"],
+                ));
               }
-              //print("replyyyy"+reply.toString());
-              // _addMessage(reply, false, 'Bot');
             }
+            _addMessage(_buildPanel(), false, 'Bot');
           }
         } else {
           setState(() {
