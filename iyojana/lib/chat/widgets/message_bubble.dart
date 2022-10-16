@@ -9,6 +9,7 @@ class MessageBubble extends StatelessWidget {
   TextToSpeech tts = TextToSpeech();
 
   Widget messageContainer(BuildContext context) {
+  final Locale appLocale = Localizations.localeOf(context);
     return Container(
       decoration: BoxDecoration(
         color: isMe ? const Color.fromARGB(255, 0, 166, 36) : Colors.white,
@@ -82,6 +83,7 @@ class MessageBubble extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
+
                     tts.setLanguage("gu-IN");
                     tts.speak(message);
                   },

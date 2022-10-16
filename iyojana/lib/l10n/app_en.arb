@@ -40,5 +40,14 @@
   "married": "Married",
   "unmarried": "Unmarried",
   "widow": "Widow",
-  "alreadyAcc": "Already have an account ?"
+  "alreadyAcc": "Already have an account ?",
+  "recommended": "Recommended",
+  "development": "Development",
+  "agriculture": "Agriculture",
+  "education" : "Education",
+  "loan":"Loan",
+  "covid": "COVID-19",
+  "healthcare" : "Healthcare",
+  "science" : "Science",
+  "family" : "Family"
 }

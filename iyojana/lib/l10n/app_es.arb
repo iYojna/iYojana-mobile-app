@@ -40,5 +40,14 @@
   "married": "પરિણીત",
   "unmarried": "અપરિણીત",
   "widow": "વિધવા",
-  "alreadyAcc": "પહેલેથી જ એક એકાઉન્ટ છે"
+  "alreadyAcc": "પહેલેથી જ એક એકાઉન્ટ છે",
+  "recommended": "સૂચના મેળવો ",
+  "development": "વિકાસ",
+  "agriculture": "ખેતી",
+  "education" : "શિક્ષણ",
+  "loan":"લોન",
+  "covid": "COVID-19",
+  "healthcare" : "સ્વાસ્થ્ય કાળજી",
+  "science" : "વિજ્ઞાન",
+  "family" : "કુટુંબ"
 }

@@ -81,7 +81,7 @@ class _AllSchemesListViewState extends State<AllSchemesListView> {
       url,
       headers: <String, String>{
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
     );
     print(response.body.toString());
