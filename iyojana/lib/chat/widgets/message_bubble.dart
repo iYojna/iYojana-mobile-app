@@ -6,7 +6,7 @@ class MessageBubble extends StatelessWidget {
   bool isMe;
   MessageBubble(this.message, this.isMe, this.username);
 
-  Widget messageContainer() {
+  Widget messageContainer(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: isMe ? const Color.fromARGB(255, 0, 166, 36) : Colors.white,
@@ -18,8 +18,10 @@ class MessageBubble extends StatelessWidget {
             topRight:
                 isMe ? const Radius.circular(0) : const Radius.circular(20)),
       ),
-      width:
-          200, //width will not work if we have only container as parent widget
+      width: (isMe
+          ? MediaQuery.of(context).size.width * 0.40
+          : MediaQuery.of(context).size.width *
+              0.80), //width will not work if we have only container as parent widget
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
       child: message.runtimeType == String
@@ -42,9 +44,19 @@ class MessageBubble extends StatelessWidget {
                 )
               ],
             )
-          : Center(
-              child: message,
-            ),
+          : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Text(
+                  username,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: isMe ? Colors.grey[300] : Colors.black,
+                  ),
+                ),
+              ),
+              message
+            ]),
     );
   }
 
@@ -63,7 +75,7 @@ class MessageBubble extends StatelessWidget {
               backgroundColor: Colors.transparent,
               backgroundImage: const AssetImage('assets/bot_icon.png'),
             ),
-          messageContainer(),
+          messageContainer(context),
           if (isMe)
             CircleAvatar(
               backgroundColor: Colors.transparent,
