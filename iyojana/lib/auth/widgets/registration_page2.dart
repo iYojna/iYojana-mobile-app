@@ -118,7 +118,7 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                       username: "aa",
                       password: "aa",
                       dob: formProvider.dateOfBirth!,
-                      phone: formProvider.phoneNumber!,
+                      phone: formProvider.phoneNumber!.replaceAll(" ", ""),
                       caste: formProvider.caste!,
                       district: formProvider.place!,
                       edQual: formProvider.edQual!,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iyojana/chat/chat_screen.dart';
+import 'package:iyojana/scheme/all_scheme_widget.dart';
 
 import 'dashboard/dashboard.dart';
 
@@ -13,10 +14,10 @@ class BasicBottomNavBar extends StatefulWidget {
 class _BasicBottomNavBarState extends State<BasicBottomNavBar> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _pages = <Widget>[
+  static  List<Widget> _pages = <Widget>[
     Dashboard(),
     ChatScreen(),
-    Dashboard(),
+    AllSchemesListView(),
   ];
 
   void _onItemTapped(int index) {
@@ -71,8 +72,8 @@ class _BasicBottomNavBarState extends State<BasicBottomNavBar> {
             label: 'Chatbot',
           ),
           BottomNavigationBarItem(
-            icon: TabBarIcon(Icons.account_circle, "Account", 2),
-            label: 'Account',
+            icon: TabBarIcon(Icons.account_circle, "Scheme", 2),
+            label: 'All Schemes',
           ),
         ],
         currentIndex: _selectedIndex,
