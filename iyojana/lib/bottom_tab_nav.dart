@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:iyojana/chat/chat_screen.dart';
+
+import 'dashboard/dashboard.dart';
 
 class BasicBottomNavBar extends StatefulWidget {
   const BasicBottomNavBar({Key? key}) : super(key: key);
@@ -11,18 +14,9 @@ class _BasicBottomNavBarState extends State<BasicBottomNavBar> {
   int _selectedIndex = 0;
 
   static const List<Widget> _pages = <Widget>[
-    Icon(
-      Icons.home,
-      size: 150,
-    ),
-    Icon(
-      Icons.chat,
-      size: 150,
-    ),
-    Icon(
-      Icons.account_circle,
-      size: 150,
-    ),
+    Dashboard(),
+    ChatScreen(),
+    Dashboard(),
   ];
 
   void _onItemTapped(int index) {
@@ -62,9 +56,9 @@ class _BasicBottomNavBarState extends State<BasicBottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _pages.elementAt(_selectedIndex),
-      ),
+      resizeToAvoidBottomInset: false,
+      body: _pages.elementAt(_selectedIndex),
+      
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: [

@@ -4,11 +4,14 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:iyojana/auth/otp_screen.dart';
 import 'package:iyojana/auth/widgets/custom_dropdown.dart';
 import 'package:iyojana/auth/widgets/custom_text_field.dart';
+import 'package:iyojana/language_constants.dart';
 import 'package:provider/provider.dart';
 
 import '../../styles.dart';
+import '../auth_provider.dart';
 import '../form_provider.dart';
 import 'custom_elevated_button.dart';
 
@@ -26,7 +29,7 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
   final TextEditingController _educationalController = TextEditingController();
   final TextEditingController _placeController = TextEditingController();
 
-  List<String> maritalOptions = ["Single", "Married"];
+  List<String> maritalOptions = ["Unmarried", "Married", "Widow"];
   List<String> casteOptions = ["General", "OBC", "SC", "ST"];
   List<String> educationalOptions = [
     "Below 10th",
@@ -60,8 +63,8 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
             children: [
               customDropDown(
                   context: context,
-                  hintText: "Select your Caste",
-                  labelText: "Caste",
+                  hintText: translation(context).caste,
+                  labelText: translation(context).caste,
                   onChanged: (value) {
                     formProvider.setCaste(value);
                   },
@@ -69,7 +72,7 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
               customDropDown(
                   context: context,
                   hintText: "Select your educational qualifications",
-                  labelText: "Educational Qualifications",
+                  labelText: translation(context).edQual,
                   onChanged: (value) {
                     formProvider.setEdquality(value);
                   },
@@ -77,7 +80,7 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
               customDropDown(
                   context: context,
                   hintText: "Select your Marital Status",
-                  labelText: "Marital Status",
+                  labelText: translation(context).maritalStatus,
                   onChanged: (value) {
                     formProvider.setMaritalStatus(value);
                   },
@@ -90,14 +93,14 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
                 child: RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
-                    text: "Already have an account? ",
+                    text: translation(context).alreadyAcc,
                     style: const TextStyle(
                         fontSize: 14,
                         color: Colors.black,
                         fontWeight: FontWeight.w400),
                     children: <TextSpan>[
                       TextSpan(
-                          text: 'Log In',
+                          text: translation(context).login,
                           style: const TextStyle(color: Colors.green),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
@@ -110,13 +113,26 @@ class _RegistrationPage2State extends State<RegistrationPage2> {
               ),
               customElevatedButton(
                   context: context,
-                  onPressed: () {
-                    print(formProvider.caste);
-                    print(formProvider.dateOfBirth);
-                    print(formProvider.caste);
-                    print(formProvider.gender);
+                  onPressed: () async {
+                    await Auth().register(
+                      username: "aa",
+                      password: "aa",
+                      dob: formProvider.dateOfBirth!,
+                      phone: formProvider.phoneNumber!,
+                      caste: formProvider.caste!,
+                      district: formProvider.place!,
+                      edQual: formProvider.edQual!,
+                      firstName: "AKhilesh",
+                      lastName: "Akhiles",
+                      gender: formProvider.gender!,
+                      income: formProvider.income!,
+                      maritalStatus: formProvider.maritalStatus!,
+                    );
+                    
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => OTPScreen()));
                   },
-                  content: "Sign Up",
+                  content: translation(context).signUp,
                   style: Styles().buttonStyle1())
             ],
           ),

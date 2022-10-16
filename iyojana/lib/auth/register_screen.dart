@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:iyojana/auth/set_tags_screen.dart';
 import 'package:iyojana/auth/widgets/custom_dropdown.dart';
 import 'package:iyojana/auth/widgets/custom_text_field.dart';
+import 'package:iyojana/auth/widgets/language_dropdown.dart';
 import 'package:iyojana/auth/widgets/registration_page1.dart';
 import 'package:iyojana/auth/widgets/registration_page2.dart';
 import 'package:iyojana/styles.dart';
@@ -46,6 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: CustomScrollView(
         //physics: NeverScrollableScrollPhysics(),
         slivers: [
@@ -59,6 +61,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Align(
                         alignment: Alignment.topLeft,
                         child: Image.asset("assets/appBG.png")),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Align(
+                          alignment: Alignment.topRight,
+                          child: languageDropdown(context))
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(top: 70.0),
                       child: Align(
