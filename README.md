@@ -17,4 +17,4 @@ All places of input in our app would be text & voice-based (selected by user) al
 - Gujarati speech to text
 - Chatbot with text to speech enabled
 
-                                                        Made with ♥ team Hackpackers
+                                                                  Made with ♥ team Hackpackers
